@@ -1,0 +1,113 @@
+---
+// Section 3 — Solucao (PRD 04 §4 Section 3 / Story 5.2 AC4).
+// Grid 3x2 com 6 capacidades: icone + titulo + 1 frase.
+const capacidades = [
+  {
+    icone: '📄',
+    titulo: 'Orçamentos com PDF',
+    descricao: 'Gere em segundos e envie por WhatsApp.',
+  },
+  {
+    icone: '🗂️',
+    titulo: 'Kanban de OS',
+    descricao:
+      'Arraste o card, atualize o status, o cliente vê em tempo real.',
+  },
+  {
+    icone: '🔗',
+    titulo: 'Portal do Cliente',
+    descricao:
+      'Link único onde o cliente acompanha sem precisar ligar.',
+  },
+  {
+    icone: '📅',
+    titulo: 'Agendamentos e Lembretes',
+    descricao: 'Fim do esquecimento de revisões.',
+  },
+  {
+    icone: '💰',
+    titulo: 'Financeiro Integrado',
+    descricao: 'Fluxo de caixa, contas a pagar/receber, comissões.',
+  },
+  {
+    icone: '📊',
+    titulo: 'Relatórios Visuais',
+    descricao: 'Saiba o que vende mais, qual peça dá mais margem.',
+  },
+];
+---
+
+<section class="solucao" id="solucao">
+  <div class="container">
+    <h2 class="section-title">Tudo o que sua oficina precisa, num só lugar</h2>
+    <ul class="solucao-grid">
+      {
+        capacidades.map((cap) => (
+          <li class="solucao-card">
+            <span class="solucao-icon" aria-hidden="true">
+              {cap.icone}
+            </span>
+            <h3 class="solucao-card-title">{cap.titulo}</h3>
+            <p class="solucao-card-desc">{cap.descricao}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .solucao {
+    background-color: var(--color-bg);
+    padding-block: var(--space-lg);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    text-align: center;
+    margin-block: 0 var(--space-md);
+  }
+
+  .solucao-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .solucao-card {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-md);
+  }
+
+  .solucao-icon {
+    font-size: 2.25rem;
+    display: block;
+    margin-block-end: var(--space-sm);
+  }
+
+  .solucao-card-title {
+    font-size: 1.2rem;
+    margin-block: 0 var(--space-xs);
+  }
+
+  .solucao-card-desc {
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .solucao-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .solucao-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

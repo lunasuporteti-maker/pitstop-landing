@@ -1,0 +1,140 @@
+---
+// Section 1 — Hero (PRD 04 §4 Section 1 / Story 5.2 AC2).
+// Headline, sub-headline, CTA primario (utm_campaign=hero), CTA secundario
+// (placeholder de demonstracao — modal implementado na Story 5.5), microcopy
+// e espaco para visual/screenshot.
+import { ctaUrl } from '../../utils/utm';
+
+const cadastroUrl = ctaUrl('hero');
+---
+
+<section class="hero" id="hero">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Sua oficina organizada, do orçamento ao pagamento, em um só sistema.
+      </h1>
+      <p class="hero-subtitle">
+        Substitua planilhas, papéis e grupos de WhatsApp. PitStop gerencia
+        clientes, veículos, orçamentos, OS e fluxo de caixa da sua oficina
+        mecânica em uma plataforma feita por quem entende do setor.
+      </p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href={cadastroUrl}>
+          Começar grátis por 14 dias
+        </a>
+        <!--
+          CTA secundario: placeholder. O modal de demonstracao (video) e
+          implementado na Story 5.5. Por ora aponta para a ancora de demo.
+        -->
+        <a class="btn btn-secondary" href="#demonstracao">Ver demonstração</a>
+      </div>
+
+      <p class="hero-microcopy">Sem cartão de crédito. Cancele quando quiser.</p>
+    </div>
+
+    <div class="hero-visual" role="img" aria-label="Prévia do sistema PitStop">
+      <!-- Placeholder de screenshot. Substituir por imagem real na Story 5.5. -->
+      <span class="hero-visual-text">[Screenshot do Sistema]</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background-color: var(--color-bg);
+    padding-block: var(--space-lg);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.15;
+    margin-block: 0 var(--space-sm);
+    color: var(--color-text);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--color-text-muted);
+    max-width: 60ch;
+    margin-block: 0 var(--space-md);
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-block-end: var(--space-sm);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .hero-microcopy {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-block: 0;
+  }
+
+  .hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    background-color: var(--color-bg-alt);
+    border: 1px dashed var(--color-border);
+    border-radius: 12px;
+  }
+
+  .hero-visual-text {
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  @media (min-width: 1280px) {
+    .hero-inner {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+</style>

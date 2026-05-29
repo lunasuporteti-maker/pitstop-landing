@@ -1,0 +1,108 @@
+---
+// Section 4 — Prova Social (PRD 04 §4 Section 4 / Story 5.2 AC5).
+//
+// NOTA INTERNA: esta secao usa PLACEHOLDER. Com apenas 1 cliente (AutoFix),
+// nao inventamos multiplos depoimentos (PRD CON-005). O depoimento real e as
+// metricas so podem ir ao ar APOS autorizacao escrita do AutoFix (PRD R3).
+//
+// TODO: substituir com depoimento real após autorização escrita AutoFix
+const metricas = [
+  { valor: 'X', unidade: 'OS processadas/mês' },
+  { valor: 'Y%', unidade: 'menos tempo administrativo' },
+  { valor: 'Z', unidade: 'orçamentos gerados' },
+];
+---
+
+<section class="prova-social" id="prova-social">
+  <div class="container">
+    <h2 class="section-title">Quem usa, recomenda</h2>
+
+    <!-- TODO: substituir com depoimento real após autorização escrita AutoFix -->
+    <blockquote class="depoimento">
+      <p class="depoimento-texto">
+        (Depoimento AutoFix — pendente autorização escrita)
+      </p>
+      <footer class="depoimento-autor">— Oficina AutoFix</footer>
+    </blockquote>
+
+    <ul class="metricas">
+      {
+        metricas.map((m) => (
+          <li class="metrica">
+            <span class="metrica-valor">{m.valor}</span>
+            <span class="metrica-unidade">{m.unidade}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .prova-social {
+    background-color: var(--color-bg-alt);
+    padding-block: var(--space-lg);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    text-align: center;
+    margin-block: 0 var(--space-md);
+  }
+
+  .depoimento {
+    max-width: 60ch;
+    margin: 0 auto var(--space-md);
+    padding: var(--space-md);
+    background-color: var(--color-bg);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 8px;
+  }
+
+  .depoimento-texto {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin-block: 0 var(--space-sm);
+  }
+
+  .depoimento-autor {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .metricas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  .metrica {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-md);
+  }
+
+  .metrica-valor {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .metrica-unidade {
+    display: block;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 768px) {
+    .metricas {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

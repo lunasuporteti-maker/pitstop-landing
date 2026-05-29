@@ -1,0 +1,66 @@
+---
+// Section 8 — CTA Final (PRD 04 §4 Section 8 / Story 5.2 AC9).
+// Bloco destacado e contrastante que repete o CTA primario.
+// CTA aponta para /cadastro com utm_campaign=cta_final.
+import { ctaUrl } from '../../utils/utm';
+
+const cadastroUrl = ctaUrl('cta_final');
+---
+
+<section class="cta-final" id="cta-final">
+  <div class="container cta-final-inner">
+    <h2 class="cta-final-title">Pronto para organizar sua oficina?</h2>
+    <a class="btn btn-cta" href={cadastroUrl}>Começar grátis por 14 dias</a>
+    <p class="cta-final-microcopy">
+      Sem cartão de crédito. Cancele quando quiser.
+    </p>
+  </div>
+</section>
+
+<style>
+  .cta-final {
+    background-color: var(--color-primary);
+    padding-block: var(--space-lg);
+  }
+
+  .cta-final-inner {
+    text-align: center;
+  }
+
+  .cta-final-title {
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    color: #ffffff;
+    margin-block: 0 var(--space-md);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 1rem 2.25rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+  }
+
+  .btn-cta {
+    background-color: #ffffff;
+    color: var(--color-primary);
+  }
+
+  .btn-cta:hover {
+    background-color: var(--color-bg-alt);
+    color: var(--color-primary-dark);
+  }
+
+  .cta-final-microcopy {
+    color: #ffffff;
+    opacity: 0.9;
+    font-size: 0.9rem;
+    margin-block: var(--space-sm) 0;
+  }
+</style>

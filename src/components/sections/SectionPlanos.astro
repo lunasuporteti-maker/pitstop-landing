@@ -1,0 +1,197 @@
+---
+// Section 6 — Planos e Precos (PRD 04 §4 Section 6 / Story 5.2 AC7).
+// 3 cards lidos de src/data/planos.ts. Trial e Padrao apontam para /cadastro
+// com utm_campaign=pricing. Empresarial abre contato (modal na Story 5.5;
+// por ora ancora #contato-empresarial).
+import { planos } from '../../data/planos';
+import { ctaUrl } from '../../utils/utm';
+
+const cadastroUrl = ctaUrl('pricing');
+---
+
+<section class="planos" id="precos">
+  <div class="container">
+    <h2 class="section-title">Planos simples e transparentes</h2>
+
+    <ul class="planos-grid">
+      {
+        planos.map((plano) => (
+          <li class:list={['plano-card', { destaque: plano.destaque }]}>
+            {plano.destaque && <span class="plano-badge">Comece aqui</span>}
+
+            <h3 class="plano-nome">{plano.nome}</h3>
+
+            <p class="plano-preco">
+              <span class="plano-preco-valor">{plano.preco}</span>
+              {plano.periodo && (
+                <span class="plano-preco-periodo">{plano.periodo}</span>
+              )}
+            </p>
+
+            <p class="plano-resumo">{plano.resumo}</p>
+
+            <ul class="plano-features">
+              {plano.features.map((feature) => (
+                <li class="plano-feature">{feature}</li>
+              ))}
+            </ul>
+
+            {plano.ctaTipo === 'cadastro' ? (
+              <a class="btn btn-primary plano-cta" href={cadastroUrl}>
+                {plano.ctaLabel}
+              </a>
+            ) : (
+              // CTA Empresarial: modal de formulario implementado na Story 5.5.
+              <a class="btn btn-secondary plano-cta" href="#contato-empresarial">
+                {plano.ctaLabel}
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .planos {
+    background-color: var(--color-bg-alt);
+    padding-block: var(--space-lg);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    text-align: center;
+    margin-block: 0 var(--space-md);
+  }
+
+  .planos-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .plano-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-md);
+  }
+
+  .plano-card.destaque {
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 8px 24px rgba(255, 107, 0, 0.15);
+  }
+
+  .plano-badge {
+    position: absolute;
+    top: -0.85rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .plano-nome {
+    font-size: 1.4rem;
+    margin-block: var(--space-xs) var(--space-sm);
+  }
+
+  .plano-preco {
+    margin-block: 0 var(--space-sm);
+  }
+
+  .plano-preco-valor {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .plano-preco-periodo {
+    color: var(--color-text-muted);
+    margin-inline-start: 0.25rem;
+  }
+
+  .plano-resumo {
+    color: var(--color-text-muted);
+    margin-block: 0 var(--space-md);
+  }
+
+  .plano-features {
+    list-style: none;
+    margin: 0 0 var(--space-md);
+    padding: 0;
+    flex: 1;
+  }
+
+  .plano-feature {
+    padding-block: 0.35rem;
+    padding-inline-start: 1.5rem;
+    position: relative;
+  }
+
+  .plano-feature::before {
+    content: '✅';
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .plano-cta {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .planos-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+// Section 5 — Comparativo (PRD 04 §4 Section 5 / Story 5.2 AC6).
+// Tabela 3 colunas x 6 criterios. PitStop com check em todos; concorrentes
+// parciais e honestos. Tabela com scroll horizontal em mobile.
+//
+// Simbolos: '✅' = sim, '❌' = nao, '⚠️' = parcial/limitado.
+interface Linha {
+  criterio: string;
+  pitstop: string;
+  planilhas: string;
+  outros: string;
+}
+
+const linhas: Linha[] = [
+  {
+    criterio: 'Multi-usuário',
+    pitstop: '✅',
+    planilhas: '⚠️',
+    outros: '✅',
+  },
+  {
+    criterio: 'Portal do cliente',
+    pitstop: '✅',
+    planilhas: '❌',
+    outros: '⚠️',
+  },
+  {
+    criterio: 'Mobile',
+    pitstop: '✅',
+    planilhas: '⚠️',
+    outros: '⚠️',
+  },
+  {
+    criterio: 'Suporte em pt-BR',
+    pitstop: '✅',
+    planilhas: '❌',
+    outros: '⚠️',
+  },
+  {
+    criterio: 'Implementação rápida',
+    pitstop: '✅',
+    planilhas: '⚠️',
+    outros: '❌',
+  },
+  {
+    criterio: 'Preço transparente',
+    pitstop: '✅',
+    planilhas: '✅',
+    outros: '❌',
+  },
+];
+---
+
+<section class="comparativo" id="comparativo">
+  <div class="container">
+    <h2 class="section-title">PitStop vs. o jeito antigo</h2>
+
+    <div class="table-wrapper">
+      <table class="comparativo-table">
+        <thead>
+          <tr>
+            <th scope="col">Critério</th>
+            <th scope="col" class="col-pitstop">PitStop</th>
+            <th scope="col">Planilhas / WhatsApp</th>
+            <th scope="col">Outros softwares</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            linhas.map((linha) => (
+              <tr>
+                <th scope="row">{linha.criterio}</th>
+                <td class="col-pitstop">{linha.pitstop}</td>
+                <td>{linha.planilhas}</td>
+                <td>{linha.outros}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparativo {
+    background-color: var(--color-bg);
+    padding-block: var(--space-lg);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    text-align: center;
+    margin-block: 0 var(--space-md);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .comparativo-table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+  .comparativo-table th,
+  .comparativo-table td {
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  .comparativo-table thead th {
+    background-color: var(--color-bg-alt);
+    font-weight: 700;
+  }
+
+  .comparativo-table tbody th {
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .col-pitstop {
+    background-color: rgba(255, 107, 0, 0.08);
+  }
+
+  thead .col-pitstop {
+    color: var(--color-primary);
+    background-color: rgba(255, 107, 0, 0.12);
+  }
+</style>
