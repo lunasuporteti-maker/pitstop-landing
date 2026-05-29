@@ -1,0 +1,46 @@
+---
+// Footer — copyright + email placeholder + tagline (Story 5.1).
+// O email pode ser sobrescrito via env PUBLIC_CONTACT_EMAIL na Story 5.2+.
+const currentYear = new Date().getFullYear();
+const contactEmail =
+  import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'iaqueatende@gmail.com';
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-tagline">PitStop — um produto IAQueAtende</p>
+    <p class="footer-contact">
+      Contato:
+      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </p>
+    <p class="footer-copy">
+      &copy; {currentYear} IAQueAtende. Todos os direitos reservados.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-bg-alt);
+    margin-top: var(--space-lg);
+  }
+
+  .footer-inner {
+    padding-block: var(--space-md);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .footer-tagline {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-block: 0 var(--space-xs);
+  }
+
+  .footer-contact,
+  .footer-copy {
+    margin-block: var(--space-xs) 0;
+  }
+</style>

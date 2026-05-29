@@ -1,0 +1,71 @@
+---
+// Header — placeholder de logo + navegacao (Story 5.1).
+// Logo real e estilizacao final entram na Story 5.2.
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Precos', href: '/#precos' },
+  { label: 'Contato', href: '/#contato' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="PitStop — pagina inicial">
+      <!-- Logo placeholder (texto). Substituir por SVG/imagem na Story 5.2. -->
+      <span class="logo-text">PitStop</span>
+    </a>
+
+    <nav aria-label="Navegacao principal">
+      <ul class="nav-list">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-sm);
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .logo:hover {
+    text-decoration: none;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: var(--space-md);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-list a {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .nav-list a:hover {
+    color: var(--color-primary);
+  }
+</style>

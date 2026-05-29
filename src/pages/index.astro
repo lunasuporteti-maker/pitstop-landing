@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Pagina inicial — placeholder (Story 5.1).
+// O conteudo real de cada secao entra na Story 5.2.
+---
+
+<Layout
+  title="PitStop — Em breve"
+  description="PitStop: o sistema completo para gestao de oficinas mecanicas. Em breve."
+>
+  <section class="hero-placeholder">
+    <div class="container">
+      <h1>PitStop — Em breve</h1>
+      <p>
+        Estamos construindo o sistema completo para gestao de oficinas
+        mecanicas. Volte em breve.
+      </p>
+    </div>
+  </section>
+
+  {/*
+    SCAFFOLDING DAS SECOES — preencher na Story 5.2.
+    Cada bloco abaixo marca onde a secao correspondente sera implementada.
+  */}
+
+  {/* Section 1: Hero — headline, subheadline, CTA principal (cadastro) */}
+  {/* Section 2: Problema — dores da oficina sem sistema de gestao */}
+  {/* Section 3: Solucao — visao geral do PitStop e principais beneficios */}
+  {/* Section 4: Funcionalidades — features (OS, agendamento, financeiro, etc.) */}
+  {/* Section 5: Demonstracao — video demo (PUBLIC_VIDEO_DEMO_URL) */}
+  {/* Section 6: Prova social — depoimentos / cases */}
+  {/* Section 7: Precos — planos e tabela de precos */}
+  {/* Section 8: FAQ — perguntas frequentes */}
+  {/* Section 9: CTA final + Contato — formulario / contato comercial */}
+</Layout>
+
+<style>
+  .hero-placeholder {
+    text-align: center;
+    padding-block: var(--space-lg);
+  }
+
+  .hero-placeholder h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--color-primary);
+    margin-block: 0 var(--space-sm);
+  }
+
+  .hero-placeholder p {
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin-inline: auto;
+  }
+</style>
