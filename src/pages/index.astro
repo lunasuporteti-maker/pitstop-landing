@@ -3,6 +3,7 @@
 // Ordem PRD: Hero, Problema, Solucao, Prova Social, Comparativo, Planos,
 // FAQ, CTA Final, Footer (Footer e renderizado pelo Layout).
 import Layout from '../layouts/Layout.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
 import SectionHero from '../components/sections/SectionHero.astro';
 import SectionProblema from '../components/sections/SectionProblema.astro';
 import SectionSolucao from '../components/sections/SectionSolucao.astro';
@@ -17,6 +18,7 @@ import SectionCtaFinal from '../components/sections/SectionCtaFinal.astro';
   title="PitStop — Sistema de gestão para oficinas mecânicas"
   description="Substitua planilhas e WhatsApp. O PitStop gerencia orçamentos, OS, agendamentos e financeiro da sua oficina. Comece grátis por 14 dias."
 >
+  <SchemaOrg slot="head" />
   <SectionHero />
   <SectionProblema />
   <SectionSolucao />

@@ -1,0 +1,54 @@
+---
+// Componente <SEO /> reutilizavel (Story 5.3 / PRD 04 §5.3 FR-020).
+// Centraliza title, description, canonical, Open Graph e Twitter Cards.
+// Usado pelo Layout.astro como padrao de <head> de todas as paginas.
+//
+// O conteudo legal das meta tags (title <=60 chars, description <=160 chars)
+// e responsabilidade de quem usa o Layout — ver AC1.
+
+interface Props {
+  /** <title> da pagina (recomendado <=60 caracteres). */
+  title: string;
+  /** <meta name="description"> (recomendado <=160 caracteres). */
+  description: string;
+  /** Imagem Open Graph / Twitter (caminho relativo ao site ou URL absoluta). */
+  ogImage?: string;
+  /** Canonical URL. Default: URL atual derivada de Astro.site + pathname. */
+  canonical?: string;
+  /** og:type (default 'website'). */
+  ogType?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/og-default.svg',
+  canonical,
+  ogType = 'website',
+} = Astro.props;
+
+// Astro.site vem de astro.config.mjs (https://pitstop.iaqueatende.com.br).
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site)
+  : new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content="PitStop" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />

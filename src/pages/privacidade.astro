@@ -1,0 +1,95 @@
+---
+// Pagina /privacidade (Story 5.3 / AC5). Placeholder com mencao a LGPD
+// (Lei 13.709/2018). Redacao final pelo time juridico + Copy.
+import Layout from '../layouts/Layout.astro';
+
+const versao = 'v1.0';
+const dataVigencia = '29/05/2026';
+const contato = 'iaqueatende@gmail.com';
+---
+
+<Layout
+  title="Política de Privacidade — PitStop"
+  description="Política de Privacidade do PitStop em conformidade com a LGPD (Lei 13.709/2018). Saiba como a IAQueAtende coleta e protege seus dados."
+>
+  <article class="legal">
+    <div class="container">
+      <h1 class="legal-title">Política de Privacidade</h1>
+      <p class="legal-meta">
+        Versão {versao} · Vigência a partir de {dataVigencia}
+      </p>
+
+      <p class="legal-placeholder">
+        Política de Privacidade em elaboração pelo time jurídico. Em caso de
+        dúvidas contate <a href={`mailto:${contato}`}>{contato}</a>.
+      </p>
+
+      <h2 class="legal-subtitle">Conformidade com a LGPD</h2>
+      <p class="legal-text">
+        O PitStop, produto da IAQueAtende, trata dados pessoais em conformidade
+        com a Lei Geral de Proteção de Dados — LGPD (Lei nº 13.709/2018). Você
+        tem direito de acessar, corrigir e solicitar a exclusão dos seus dados.
+      </p>
+
+      <h2 class="legal-subtitle">Dados coletados</h2>
+      <ul class="legal-list">
+        <li>Dados de cadastro (nome, e-mail, dados da oficina).</li>
+        <li>Dados de uso necessários ao funcionamento do sistema.</li>
+        <li>Dados fornecidos voluntariamente ao entrar em contato conosco.</li>
+      </ul>
+
+      <h2 class="legal-subtitle">Contato do encarregado</h2>
+      <p class="legal-text">
+        Para exercer seus direitos ou tirar dúvidas sobre privacidade, escreva
+        para <a href={`mailto:${contato}`}>{contato}</a>.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .legal {
+    padding-block: var(--space-lg);
+  }
+
+  .legal .container {
+    max-width: 760px;
+  }
+
+  .legal-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin-block: 0 var(--space-xs);
+  }
+
+  .legal-meta {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-block: 0 var(--space-md);
+  }
+
+  .legal-placeholder {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-sm);
+    margin-block: 0 var(--space-md);
+  }
+
+  .legal-subtitle {
+    font-size: 1.25rem;
+    margin-block: var(--space-md) var(--space-xs);
+  }
+
+  .legal-text {
+    color: var(--color-text-muted);
+  }
+
+  .legal-list {
+    color: var(--color-text-muted);
+    padding-inline-start: 1.25rem;
+  }
+
+  .legal-list li {
+    padding-block: 0.2rem;
+  }
+</style>

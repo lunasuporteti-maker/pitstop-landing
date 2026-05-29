@@ -1,0 +1,67 @@
+---
+// Pagina /termos (Story 5.3 / AC5). Conteudo final e responsabilidade do time
+// juridico + Copy; aqui fica placeholder claro + versao v1.0.
+import Layout from '../layouts/Layout.astro';
+
+const versao = 'v1.0';
+const dataVigencia = '29/05/2026';
+const contato = 'iaqueatende@gmail.com';
+---
+
+<Layout
+  title="Termos de Uso — PitStop"
+  description="Termos de Uso do PitStop, sistema de gestão para oficinas mecânicas da IAQueAtende. Versão v1.0."
+>
+  <article class="legal">
+    <div class="container">
+      <h1 class="legal-title">Termos de Uso</h1>
+      <p class="legal-meta">
+        Versão {versao} · Vigência a partir de {dataVigencia}
+      </p>
+
+      <p class="legal-placeholder">
+        Termos de Uso em elaboração pelo time jurídico. Em caso de dúvidas
+        contate <a href={`mailto:${contato}`}>{contato}</a>.
+      </p>
+
+      <p class="legal-text">
+        Ao utilizar o PitStop, um produto da IAQueAtende, você concorda com os
+        termos que serão publicados nesta página. Esta versão preliminar serve
+        para fins informativos enquanto a redação final é concluída.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .legal {
+    padding-block: var(--space-lg);
+  }
+
+  .legal .container {
+    max-width: 760px;
+  }
+
+  .legal-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin-block: 0 var(--space-xs);
+  }
+
+  .legal-meta {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-block: 0 var(--space-md);
+  }
+
+  .legal-placeholder {
+    background-color: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-sm);
+    margin-block: 0 var(--space-md);
+  }
+
+  .legal-text {
+    color: var(--color-text-muted);
+  }
+</style>

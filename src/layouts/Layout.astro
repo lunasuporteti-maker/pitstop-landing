@@ -2,23 +2,23 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SEO from '../components/SEO.astro';
 
 interface Props {
   title?: string;
   description?: string;
   /** Imagem usada nas tags Open Graph / Twitter (caminho absoluto ou relativo ao site). */
   ogImage?: string;
+  /** Canonical URL explicita (default: pathname atual). */
+  canonical?: string;
 }
 
 const {
   title = 'PitStop — Sistema de gestao para oficinas',
   description = 'PitStop: o sistema completo para gestao de oficinas mecanicas. Ordens de servico, agendamentos, financeiro e mais.',
-  ogImage = '/og-default.png',
+  ogImage = '/og-default.svg',
+  canonical,
 } = Astro.props;
-
-// Astro.site vem de astro.config.mjs (https://pitstop.iaqueatende.com.br)
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(ogImage, Astro.site);
 ---
 
 <!doctype html>
@@ -27,26 +27,14 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={ogImageURL} />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content="PitStop" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageURL} />
+    <SEO
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      canonical={canonical}
+    />
 
     <!--
       LGPD: scripts de remarketing (Meta Pixel / Google Analytics) NAO sao

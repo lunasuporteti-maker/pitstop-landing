@@ -1,0 +1,166 @@
+---
+// Pagina /contato (Story 5.3 / AC5). Formulario placeholder — a acao e o
+// webhook de envio sao implementados na Story 5.5. Por ora o form nao submete
+// (botao disabled) e os canais diretos (e-mail/WhatsApp) ficam visiveis.
+import Layout from '../layouts/Layout.astro';
+
+const contactEmail =
+  import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'iaqueatende@gmail.com';
+// WhatsApp da IAQueAtende (placeholder ate confirmacao do numero comercial).
+const whatsappNumero =
+  import.meta.env.PUBLIC_WHATSAPP_NUMERO ?? '5581995860005';
+const whatsappLink = `https://wa.me/${whatsappNumero}`;
+const whatsappDisplay = '(81) 99586-0005';
+---
+
+<Layout
+  title="Contato — PitStop"
+  description="Fale com a equipe do PitStop. Tire dúvidas sobre o sistema de gestão para oficinas por e-mail ou WhatsApp, ou envie sua mensagem pelo formulário."
+>
+  <section class="contato">
+    <div class="container contato-grid">
+      <div class="contato-intro">
+        <h1 class="contato-title">Fale com a gente</h1>
+        <p class="contato-lead">
+          Tem dúvidas sobre o PitStop ou quer condições para a sua rede de
+          oficinas? Use os canais abaixo ou envie uma mensagem.
+        </p>
+
+        <ul class="contato-canais">
+          <li>
+            <strong>E-mail:</strong>
+            <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+          </li>
+          <li>
+            <strong>WhatsApp:</strong>
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              {whatsappDisplay}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!--
+        Formulario placeholder: o envio (action + webhook) e implementado na
+        Story 5.5. Campos desabilitados ate la para nao gerar leads perdidos.
+      -->
+      <form class="contato-form" aria-label="Formulário de contato">
+        <label class="form-field">
+          <span class="form-label">Nome</span>
+          <input type="text" name="nome" autocomplete="name" disabled />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">E-mail</span>
+          <input type="email" name="email" autocomplete="email" disabled />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Mensagem</span>
+          <textarea name="mensagem" rows="5" disabled></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary" disabled>
+          Enviar (em breve)
+        </button>
+        <p class="form-nota">
+          O envio pelo formulário estará disponível em breve. Enquanto isso, use
+          o e-mail ou o WhatsApp acima.
+        </p>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contato {
+    padding-block: var(--space-lg);
+  }
+
+  .contato-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .contato-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin-block: 0 var(--space-sm);
+  }
+
+  .contato-lead {
+    color: var(--color-text-muted);
+    margin-block: 0 var(--space-md);
+  }
+
+  .contato-canais {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .contato-canais li {
+    padding-block: 0.35rem;
+  }
+
+  .contato-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .form-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .contato-form input,
+  .contato-form textarea {
+    font: inherit;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-bg-alt);
+    color: var(--color-text);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-nota {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-block: 0;
+  }
+
+  @media (min-width: 768px) {
+    .contato-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+</style>

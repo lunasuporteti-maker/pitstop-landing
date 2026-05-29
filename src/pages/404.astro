@@ -1,0 +1,73 @@
+---
+// Pagina 404 customizada (Story 5.3 / AC5). Astro usa src/pages/404.astro como
+// fallback de rota nao encontrada. prerender garante geracao estatica no build.
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = true;
+---
+
+<Layout
+  title="Página não encontrada — PitStop"
+  description="A página que você procura não existe ou foi movida. Volte para a página inicial do PitStop."
+>
+  <section class="erro">
+    <div class="container erro-inner">
+      <p class="erro-codigo">404</p>
+      <h1 class="erro-title">Página não encontrada</h1>
+      <p class="erro-lead">
+        A página que você procura não existe ou foi movida. Vamos te levar de
+        volta para um lugar seguro.
+      </p>
+      <a class="btn btn-primary" href="/">Voltar para a home</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .erro {
+    padding-block: var(--space-lg);
+  }
+
+  .erro-inner {
+    text-align: center;
+    max-width: 560px;
+  }
+
+  .erro-codigo {
+    font-size: clamp(3rem, 12vw, 6rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-block: 0;
+    line-height: 1;
+  }
+
+  .erro-title {
+    font-size: clamp(1.5rem, 5vw, 2.25rem);
+    margin-block: var(--space-xs) var(--space-sm);
+  }
+
+  .erro-lead {
+    color: var(--color-text-muted);
+    margin-block: 0 var(--space-md);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    color: #ffffff;
+    text-decoration: none;
+  }
+</style>

@@ -9,6 +9,15 @@ const contactEmail =
 <footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-tagline">PitStop — um produto IAQueAtende</p>
+
+    <nav class="footer-nav" aria-label="Links do rodapé">
+      <a href="/precos">Preços</a>
+      <a href="/contato">Contato</a>
+      <a href="/blog">Blog</a>
+      <a href="/termos">Termos de Uso</a>
+      <a href="/privacidade">Privacidade</a>
+    </nav>
+
     <p class="footer-contact">
       Contato:
       <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
@@ -37,6 +46,23 @@ const contactEmail =
     font-weight: 600;
     color: var(--color-text);
     margin-block: 0 var(--space-xs);
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-block: 0 var(--space-sm);
+  }
+
+  .footer-nav a {
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .footer-nav a:hover {
+    color: var(--color-primary);
   }
 
   .footer-contact,

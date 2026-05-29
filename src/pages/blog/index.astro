@@ -1,0 +1,41 @@
+---
+// Pagina /blog (Story 5.3 / AC6). Estrutura minima sem posts — "Em breve".
+// Os posts e o sistema de conteudo entram em uma story futura.
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Blog — PitStop"
+  description="Em breve: dicas e novidades sobre gestão de oficinas mecânicas no blog do PitStop."
+>
+  <section class="blog">
+    <div class="container blog-inner">
+      <h1 class="blog-title">Blog do PitStop</h1>
+      <p class="blog-lead">
+        Em breve — dicas e novidades sobre gestão de oficinas mecânicas,
+        atendimento e crescimento do seu negócio.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .blog {
+    padding-block: var(--space-lg);
+  }
+
+  .blog-inner {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .blog-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin-block: 0 var(--space-sm);
+  }
+
+  .blog-lead {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+  }
+</style>

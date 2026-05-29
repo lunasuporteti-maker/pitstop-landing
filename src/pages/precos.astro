@@ -1,0 +1,43 @@
+---
+// Pagina /precos (Story 5.3 / AC5). Reaproveita <SectionPlanos /> da Story 5.2
+// com uma intro propria. title <=60 chars, description <=160 chars (AC1).
+import Layout from '../layouts/Layout.astro';
+import SectionPlanos from '../components/sections/SectionPlanos.astro';
+---
+
+<Layout
+  title="Planos e Preços — PitStop"
+  description="Conheça os planos do PitStop: Trial grátis de 14 dias, plano Padrão por R$ 99,90/mês e condições para redes. Sem fidelidade, cancele quando quiser."
+>
+  <section class="precos-intro">
+    <div class="container">
+      <h1 class="precos-title">Planos e preços do PitStop</h1>
+      <p class="precos-lead">
+        Preços simples e transparentes, sem letras miúdas. Comece grátis por 14
+        dias e só pague quando tiver certeza de que o PitStop é para a sua
+        oficina.
+      </p>
+    </div>
+  </section>
+
+  <SectionPlanos />
+</Layout>
+
+<style>
+  .precos-intro {
+    padding-block: var(--space-lg) var(--space-md);
+    text-align: center;
+  }
+
+  .precos-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    margin-block: 0 var(--space-sm);
+  }
+
+  .precos-lead {
+    max-width: 640px;
+    margin-inline: auto;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+  }
+</style>
