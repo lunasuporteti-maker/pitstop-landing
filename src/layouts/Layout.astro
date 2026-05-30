@@ -44,8 +44,9 @@ const {
     <slot name="head" />
   </head>
   <body>
+    <a href="#main-content" class="skip-nav">Pular para o conteúdo</a>
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />

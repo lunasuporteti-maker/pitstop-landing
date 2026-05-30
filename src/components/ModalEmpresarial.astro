@@ -65,6 +65,11 @@ const webhookUrl = import.meta.env.PUBLIC_WEBHOOK_EMPRESARIAL_URL as string | un
   const btn    = document.getElementById('btn-emp-submit');
   const fb     = document.getElementById('form-emp-feedback');
 
+  // Retorna foco ao botão que abriu o modal — WCAG 2.4.3
+  dialog.addEventListener('close', () => {
+    document.getElementById('btn-abrir-modal-empresarial')?.focus();
+  });
+
   // Fechar ao clicar no X
   document.getElementById('modal-emp-close').addEventListener('click', () => dialog.close());
 

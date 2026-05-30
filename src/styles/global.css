@@ -4,9 +4,10 @@
    ========================================================================== */
 
 :root {
-  /* Cores */
-  --color-primary: #ff6b00; /* laranja PitStop (placeholder) */
-  --color-primary-dark: #cc5500;
+  /* Cores — primary escurecido para WCAG AA: contraste ≥ 4.5:1 com branco */
+  --color-primary: #c44800;      /* 4.86:1 com branco ✅ */
+  --color-primary-dark: #a33b00; /* hover/active */
+  --color-primary-vivid: #ff6b00; /* uso decorativo apenas (borders, badges) */
   --color-text: #1a1a1a;
   --color-text-muted: #555555;
   --color-bg: #ffffff;
@@ -60,6 +61,31 @@ a {
 a:hover {
   color: var(--color-primary-dark);
   text-decoration: underline;
+}
+
+/* Focus ring global — WCAG 2.4.7 / AC8 */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Skip nav — WCAG 2.4.1: visível ao receber foco via teclado */
+.skip-nav {
+  position: absolute;
+  top: -9999px;
+  left: 0;
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 0 8px 0;
+}
+
+.skip-nav:focus-visible {
+  top: 0;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
 }
 
 .container {

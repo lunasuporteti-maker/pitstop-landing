@@ -54,6 +54,11 @@ const hasVideo = !!embedUrl;
       dialog!.close();
     }
 
+    // Retorna foco ao botão que abriu o modal — WCAG 2.4.3
+    dialog.addEventListener('close', () => {
+      document.getElementById('btn-ver-demo')?.focus();
+    });
+
     // Fechar ao clicar no X
     closeBtn?.addEventListener('click', closeVideo);
 
