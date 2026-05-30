@@ -1,95 +1,115 @@
 ---
-// Pagina /privacidade (Story 5.3 / AC5). Placeholder com mencao a LGPD
-// (Lei 13.709/2018). Redacao final pelo time juridico + Copy.
 import Layout from '../layouts/Layout.astro';
-
 const versao = 'v1.0';
-const dataVigencia = '29/05/2026';
+const dataVigencia = '30/05/2026';
 const contato = 'iaqueatende@gmail.com';
 ---
 
 <Layout
   title="Política de Privacidade — PitStop"
-  description="Política de Privacidade do PitStop em conformidade com a LGPD (Lei 13.709/2018). Saiba como a IAQueAtende coleta e protege seus dados."
+  description="Política de Privacidade do PitStop em conformidade com a LGPD (Lei 13.709/2018)."
 >
   <article class="legal">
     <div class="container">
       <h1 class="legal-title">Política de Privacidade</h1>
-      <p class="legal-meta">
-        Versão {versao} · Vigência a partir de {dataVigencia}
-      </p>
+      <p class="legal-meta">Versão {versao} · Vigência a partir de {dataVigencia} · LGPD (Lei nº 13.709/2018)</p>
 
-      <p class="legal-placeholder">
-        Política de Privacidade em elaboração pelo time jurídico. Em caso de
-        dúvidas contate <a href={`mailto:${contato}`}>{contato}</a>.
-      </p>
-
-      <h2 class="legal-subtitle">Conformidade com a LGPD</h2>
+      <h2 class="legal-subtitle">1. Quem somos</h2>
       <p class="legal-text">
-        O PitStop, produto da IAQueAtende, trata dados pessoais em conformidade
-        com a Lei Geral de Proteção de Dados — LGPD (Lei nº 13.709/2018). Você
-        tem direito de acessar, corrigir e solicitar a exclusão dos seus dados.
+        A <strong>IAQueAtende</strong> é responsável pelo tratamento dos seus dados pessoais
+        no sistema PitStop. Contato: <a href={`mailto:${contato}`}>{contato}</a>
       </p>
 
-      <h2 class="legal-subtitle">Dados coletados</h2>
+      <h2 class="legal-subtitle">2. Dados que coletamos</h2>
+      <p class="legal-text">
+        Coletamos apenas os dados necessários para o funcionamento do serviço:
+      </p>
       <ul class="legal-list">
-        <li>Dados de cadastro (nome, e-mail, dados da oficina).</li>
-        <li>Dados de uso necessários ao funcionamento do sistema.</li>
-        <li>Dados fornecidos voluntariamente ao entrar em contato conosco.</li>
+        <li><strong>Cadastro:</strong> nome, e-mail e senha (armazenada com criptografia).</li>
+        <li><strong>Dados da oficina:</strong> nome, endereço e informações inseridas por você no sistema.</li>
+        <li><strong>Uso:</strong> logs de acesso (data, hora, IP anonimizado) para segurança.</li>
+        <li><strong>Pagamento:</strong> processado pelo Asaas. Não armazenamos dados de cartão.</li>
       </ul>
 
-      <h2 class="legal-subtitle">Contato do encarregado</h2>
+      <h2 class="legal-subtitle">3. Como usamos seus dados</h2>
+      <ul class="legal-list">
+        <li>Fornecer e melhorar o serviço PitStop.</li>
+        <li>Enviar comunicações operacionais (alertas de vencimento, confirmações).</li>
+        <li>Cumprir obrigações legais.</li>
+        <li>Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais.</li>
+      </ul>
+
+      <h2 class="legal-subtitle">4. Isolamento e segurança</h2>
       <p class="legal-text">
-        Para exercer seus direitos ou tirar dúvidas sobre privacidade, escreva
-        para <a href={`mailto:${contato}`}>{contato}</a>.
+        Cada oficina tem seu espaço isolado no sistema — nenhuma oficina acessa dados de outra.
+        Os dados são armazenados em servidores localizados no Brasil, com backups automáticos diários
+        e comunicação criptografada (HTTPS).
+      </p>
+
+      <h2 class="legal-subtitle">5. Seus direitos (LGPD)</h2>
+      <p class="legal-text">Como titular dos dados, você tem direito a:</p>
+      <ul class="legal-list">
+        <li>Confirmar a existência do tratamento dos seus dados.</li>
+        <li>Acessar e corrigir seus dados a qualquer momento.</li>
+        <li>Solicitar a exclusão dos seus dados pessoais.</li>
+        <li>Revogar o consentimento quando aplicável.</li>
+      </ul>
+      <p class="legal-text">
+        Para exercer seus direitos, entre em contato: <a href={`mailto:${contato}`}>{contato}</a>
+      </p>
+
+      <h2 class="legal-subtitle">6. Cookies</h2>
+      <p class="legal-text">
+        O sistema utiliza cookies técnicos essenciais (sessão de login). Utilizamos o
+        <strong>Plausible Analytics</strong> para métricas de acesso — ele não usa cookies
+        e não coleta dados pessoais identificáveis, sendo compatível com a LGPD sem necessidade
+        de consentimento específico.
+      </p>
+
+      <h2 class="legal-subtitle">7. Retenção de dados</h2>
+      <p class="legal-text">
+        Seus dados são mantidos enquanto sua conta estiver ativa. Após o cancelamento,
+        os dados são excluídos em até 90 dias, exceto quando a retenção for exigida por lei.
+      </p>
+
+      <h2 class="legal-subtitle">8. Contato e DPO</h2>
+      <p class="legal-text">
+        Dúvidas sobre privacidade ou exercício de direitos LGPD:
+        <a href={`mailto:${contato}`}>{contato}</a>
       </p>
     </div>
   </article>
 </Layout>
 
 <style>
-  .legal {
-    padding-block: var(--space-lg);
-  }
-
-  .legal .container {
-    max-width: 760px;
-  }
-
+  .legal { padding-block: var(--space-lg); }
+  .legal .container { max-width: 760px; }
   .legal-title {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
     margin-block: 0 var(--space-xs);
   }
-
   .legal-meta {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-block: 0 var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
   }
-
-  .legal-placeholder {
-    background-color: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: var(--space-sm);
-    margin-block: 0 var(--space-md);
-  }
-
   .legal-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin-block: var(--space-md) var(--space-xs);
   }
-
   .legal-text {
     color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-block: 0 var(--space-sm);
   }
-
   .legal-list {
     color: var(--color-text-muted);
-    padding-inline-start: 1.25rem;
+    line-height: 1.7;
+    padding-left: 1.25rem;
+    margin-block: 0 var(--space-sm);
   }
-
-  .legal-list li {
-    padding-block: 0.2rem;
-  }
+  .legal-list li { margin-bottom: 0.25rem; }
+  .legal-text a, .legal-list a { color: var(--color-primary); }
 </style>

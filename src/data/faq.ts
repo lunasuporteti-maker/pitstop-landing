@@ -33,7 +33,7 @@ export const faq: FaqItem[] = [
   {
     pergunta: 'Como funciona o trial?',
     resposta:
-      'São 14 dias com todos os recursos liberados e sem precisar de cartão de crédito. Ao final, você decide se quer continuar no plano pago.',
+      'São 30 dias com todos os recursos liberados e sem precisar de cartão de crédito. Ao final, você decide se quer continuar no plano pago.',
   },
   {
     pergunta: 'Os dados ficam seguros?',

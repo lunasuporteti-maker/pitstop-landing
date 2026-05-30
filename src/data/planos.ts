@@ -41,10 +41,10 @@ export const planos: Plano[] = [
     id: 'trial',
     nome: 'Trial',
     preco: 'Grátis',
-    periodo: '14 dias',
+    periodo: '30 dias',
     resumo: 'Comece aqui. Todos os recursos liberados, sem cartão de crédito.',
     features: [
-      'Acesso a todos os recursos por 14 dias',
+      'Acesso a todos os recursos por 30 dias',
       'Sem cartão de crédito',
       'Cancele quando quiser',
       'Suporte em português durante o teste',

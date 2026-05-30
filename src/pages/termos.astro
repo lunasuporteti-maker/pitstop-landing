@@ -1,67 +1,105 @@
 ---
-// Pagina /termos (Story 5.3 / AC5). Conteudo final e responsabilidade do time
-// juridico + Copy; aqui fica placeholder claro + versao v1.0.
 import Layout from '../layouts/Layout.astro';
-
 const versao = 'v1.0';
-const dataVigencia = '29/05/2026';
+const dataVigencia = '30/05/2026';
 const contato = 'iaqueatende@gmail.com';
 ---
 
 <Layout
   title="Termos de Uso — PitStop"
-  description="Termos de Uso do PitStop, sistema de gestão para oficinas mecânicas da IAQueAtende. Versão v1.0."
+  description="Termos de Uso do PitStop, sistema de gestão para oficinas mecânicas da IAQueAtende."
 >
   <article class="legal">
     <div class="container">
       <h1 class="legal-title">Termos de Uso</h1>
-      <p class="legal-meta">
-        Versão {versao} · Vigência a partir de {dataVigencia}
-      </p>
+      <p class="legal-meta">Versão {versao} · Vigência a partir de {dataVigencia}</p>
 
-      <p class="legal-placeholder">
-        Termos de Uso em elaboração pelo time jurídico. Em caso de dúvidas
-        contate <a href={`mailto:${contato}`}>{contato}</a>.
-      </p>
-
+      <h2 class="legal-subtitle">1. Sobre o serviço</h2>
       <p class="legal-text">
-        Ao utilizar o PitStop, um produto da IAQueAtende, você concorda com os
-        termos que serão publicados nesta página. Esta versão preliminar serve
-        para fins informativos enquanto a redação final é concluída.
+        O PitStop é um sistema de gestão para oficinas mecânicas desenvolvido e operado pela
+        <strong>IAQueAtende</strong>. Ao criar uma conta e utilizar o sistema, você concorda com
+        estes Termos de Uso em sua totalidade.
+      </p>
+
+      <h2 class="legal-subtitle">2. Cadastro e acesso</h2>
+      <p class="legal-text">
+        Para utilizar o PitStop é necessário criar uma conta com dados verdadeiros e completos.
+        Você é responsável pela segurança das suas credenciais de acesso e por todas as ações
+        realizadas em sua conta.
+      </p>
+
+      <h2 class="legal-subtitle">3. Período de teste (trial)</h2>
+      <p class="legal-text">
+        Novos usuários têm acesso gratuito a todos os recursos do PitStop por <strong>30 dias</strong>,
+        sem necessidade de cartão de crédito. Ao final do trial, a conta entra em modo de visualização
+        até a contratação de um plano pago.
+      </p>
+
+      <h2 class="legal-subtitle">4. Planos e pagamento</h2>
+      <p class="legal-text">
+        Os planos pagos são cobrados mensalmente com renovação automática. O cancelamento pode ser
+        feito a qualquer momento, sem multa. Ao cancelar, o acesso é mantido até o fim do período
+        já pago. Não há reembolso de períodos parciais.
+      </p>
+
+      <h2 class="legal-subtitle">5. Uso adequado</h2>
+      <p class="legal-text">
+        É proibido utilizar o PitStop para fins ilegais, prejudicar outros usuários, tentar
+        acessar dados de outras oficinas ou realizar engenharia reversa do sistema.
+        A IAQueAtende pode encerrar contas que violem estas regras sem aviso prévio.
+      </p>
+
+      <h2 class="legal-subtitle">6. Dados e privacidade</h2>
+      <p class="legal-text">
+        O tratamento dos seus dados é regido pela nossa
+        <a href="/privacidade">Política de Privacidade</a>, em conformidade com a LGPD
+        (Lei nº 13.709/2018).
+      </p>
+
+      <h2 class="legal-subtitle">7. Disponibilidade</h2>
+      <p class="legal-text">
+        Buscamos manter o sistema disponível 24h/dia. Eventuais interrupções para manutenção
+        serão comunicadas com antecedência sempre que possível. A IAQueAtende não se responsabiliza
+        por perdas decorrentes de interrupções fora do seu controle.
+      </p>
+
+      <h2 class="legal-subtitle">8. Alterações</h2>
+      <p class="legal-text">
+        Podemos atualizar estes Termos a qualquer momento. Mudanças relevantes serão comunicadas
+        por e-mail com antecedência mínima de 15 dias. O uso contínuo do sistema após a data de
+        vigência indica aceite das novas condições.
+      </p>
+
+      <h2 class="legal-subtitle">9. Contato</h2>
+      <p class="legal-text">
+        Dúvidas sobre estes Termos: <a href={`mailto:${contato}`}>{contato}</a>
       </p>
     </div>
   </article>
 </Layout>
 
 <style>
-  .legal {
-    padding-block: var(--space-lg);
-  }
-
-  .legal .container {
-    max-width: 760px;
-  }
-
+  .legal { padding-block: var(--space-lg); }
+  .legal .container { max-width: 760px; }
   .legal-title {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
     margin-block: 0 var(--space-xs);
   }
-
   .legal-meta {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-block: 0 var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
   }
-
-  .legal-placeholder {
-    background-color: var(--color-bg-alt);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: var(--space-sm);
-    margin-block: 0 var(--space-md);
+  .legal-subtitle {
+    font-size: 1.1rem;
+    margin-block: var(--space-md) var(--space-xs);
   }
-
   .legal-text {
     color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-block: 0 var(--space-sm);
   }
+  .legal-text a { color: var(--color-primary); }
 </style>
