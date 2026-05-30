@@ -1,0 +1,218 @@
+---
+// Story 5.5 — Modal "Falar com vendas" para plano Empresarial.
+// <dialog> nativo: acessível, Esc fecha, foco preso, sem bibliotecas.
+const webhookUrl = import.meta.env.PUBLIC_WEBHOOK_EMPRESARIAL_URL as string | undefined;
+---
+
+<dialog id="modal-empresarial" aria-labelledby="modal-emp-title">
+  <div class="modal-inner">
+    <div class="modal-header">
+      <h2 id="modal-emp-title" class="modal-title">Falar com nossa equipe</h2>
+      <button class="modal-close" id="modal-emp-close" type="button" aria-label="Fechar">✕</button>
+    </div>
+
+    <p class="modal-lead">Preencha abaixo e retornamos em até 24h.</p>
+
+    <form id="form-empresarial" novalidate>
+      <div class="form-row">
+        <label class="form-field">
+          <span class="form-label">Nome completo <span aria-hidden="true">*</span></span>
+          <input type="text" name="nome" autocomplete="name" required placeholder="João Silva" />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">E-mail <span aria-hidden="true">*</span></span>
+          <input type="email" name="email" autocomplete="email" required placeholder="joao@oficina.com" />
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class="form-field">
+          <span class="form-label">Telefone <span aria-hidden="true">*</span></span>
+          <input
+            type="tel"
+            name="telefone"
+            autocomplete="tel"
+            required
+            placeholder="(84) 9 9999-9999"
+            pattern="[\d\s\(\)\-\+]{10,16}"
+          />
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Nome da rede / oficina <span aria-hidden="true">*</span></span>
+          <input type="text" name="oficina" required placeholder="Rede AutoSul" />
+        </label>
+      </div>
+
+      <label class="form-field">
+        <span class="form-label">Quantidade de filiais <span aria-hidden="true">*</span></span>
+        <input type="number" name="filiais" min="2" required placeholder="Ex: 5" />
+      </label>
+
+      <div id="form-emp-feedback" role="alert" aria-live="polite"></div>
+
+      <button type="submit" class="btn btn-primary btn-full" id="btn-emp-submit">
+        Enviar mensagem
+      </button>
+    </form>
+  </div>
+</dialog>
+
+<script define:vars={{ webhookUrl }}>
+  const dialog = document.getElementById('modal-empresarial');
+  const form   = document.getElementById('form-empresarial');
+  const btn    = document.getElementById('btn-emp-submit');
+  const fb     = document.getElementById('form-emp-feedback');
+
+  // Fechar ao clicar no X
+  document.getElementById('modal-emp-close').addEventListener('click', () => dialog.close());
+
+  // Fechar ao clicar no backdrop (fora do modal-inner)
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    fb.textContent = '';
+    fb.className = '';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.source = 'landing-empresarial';
+
+    try {
+      if (!webhookUrl) throw new Error('Webhook não configurado');
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      fb.textContent = 'Recebemos seu contato! Retornaremos em até 24h.';
+      fb.className = 'feedback-ok';
+      form.reset();
+
+      // Evento Plausible — AC5
+      if (typeof window.plausible === 'function') {
+        window.plausible('form_submit_empresarial');
+      }
+    } catch {
+      fb.textContent = 'Não foi possível enviar. Tente pelo WhatsApp ou e-mail.';
+      fb.className = 'feedback-erro';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensagem';
+    }
+  });
+</script>
+
+<style>
+  #modal-empresarial {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    max-width: min(560px, 95vw);
+    width: 100%;
+    background: var(--color-bg);
+    color: var(--color-text);
+    box-shadow: 0 8px 40px rgba(0,0,0,.35);
+  }
+
+  #modal-empresarial::backdrop {
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(2px);
+  }
+
+  .modal-inner {
+    padding: 2rem;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: 0.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+  }
+
+  .modal-close:hover { color: var(--color-text); }
+
+  .modal-lead {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-block: 0 1.25rem;
+  }
+
+  #form-empresarial {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  #form-empresarial input,
+  #form-empresarial textarea {
+    font: inherit;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-bg-alt);
+    color: var(--color-text);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #form-empresarial input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+  }
+
+  .btn { display: inline-block; padding: 0.85rem 1.75rem; border-radius: 8px; font-weight: 600; font-size: 1rem; border: 2px solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--color-primary); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: var(--color-primary-dark); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-full { width: 100%; text-align: center; }
+
+  .feedback-ok  { color: #48bb78; font-size: 0.9rem; }
+  .feedback-erro { color: #fc8181; font-size: 0.9rem; }
+</style>

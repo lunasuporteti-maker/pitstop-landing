@@ -1,16 +1,12 @@
 ---
-// Pagina /contato (Story 5.3 / AC5). Formulario placeholder — a acao e o
-// webhook de envio sao implementados na Story 5.5. Por ora o form nao submete
-// (botao disabled) e os canais diretos (e-mail/WhatsApp) ficam visiveis.
+// Pagina /contato (PRD 04 / Story 5.3 AC5 / Story 5.5 AC3-AC4).
 import Layout from '../layouts/Layout.astro';
 
-const contactEmail =
-  import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'iaqueatende@gmail.com';
-// WhatsApp da IAQueAtende (placeholder ate confirmacao do numero comercial).
-const whatsappNumero =
-  import.meta.env.PUBLIC_WHATSAPP_NUMERO ?? '5581995860005';
-const whatsappLink = `https://wa.me/${whatsappNumero}`;
+const contactEmail   = import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'iaqueatende@gmail.com';
+const whatsappNumero = import.meta.env.PUBLIC_WHATSAPP_NUMERO ?? '5581995860005';
+const whatsappLink   = `https://wa.me/${whatsappNumero}`;
 const whatsappDisplay = '(81) 99586-0005';
+const webhookUrl     = import.meta.env.PUBLIC_WEBHOOK_CONTATO_URL as string | undefined;
 ---
 
 <Layout
@@ -40,37 +36,70 @@ const whatsappDisplay = '(81) 99586-0005';
         </ul>
       </div>
 
-      <!--
-        Formulario placeholder: o envio (action + webhook) e implementado na
-        Story 5.5. Campos desabilitados ate la para nao gerar leads perdidos.
-      -->
-      <form class="contato-form" aria-label="Formulário de contato">
+      <form class="contato-form" id="form-contato" aria-label="Formulário de contato" novalidate>
         <label class="form-field">
-          <span class="form-label">Nome</span>
-          <input type="text" name="nome" autocomplete="name" disabled />
+          <span class="form-label">Nome <span aria-hidden="true">*</span></span>
+          <input type="text" name="nome" autocomplete="name" required placeholder="Seu nome" />
         </label>
 
         <label class="form-field">
-          <span class="form-label">E-mail</span>
-          <input type="email" name="email" autocomplete="email" disabled />
+          <span class="form-label">E-mail <span aria-hidden="true">*</span></span>
+          <input type="email" name="email" autocomplete="email" required placeholder="seu@email.com" />
         </label>
 
         <label class="form-field">
-          <span class="form-label">Mensagem</span>
-          <textarea name="mensagem" rows="5" disabled></textarea>
+          <span class="form-label">Mensagem <span aria-hidden="true">*</span></span>
+          <textarea name="mensagem" rows="5" required placeholder="Como podemos ajudar?"></textarea>
         </label>
 
-        <button type="submit" class="btn btn-primary" disabled>
-          Enviar (em breve)
+        <div id="form-contato-feedback" role="alert" aria-live="polite"></div>
+
+        <button type="submit" class="btn btn-primary" id="btn-contato-submit">
+          Enviar mensagem
         </button>
-        <p class="form-nota">
-          O envio pelo formulário estará disponível em breve. Enquanto isso, use
-          o e-mail ou o WhatsApp acima.
-        </p>
       </form>
     </div>
   </section>
 </Layout>
+
+<script define:vars={{ webhookUrl }}>
+  const form = document.getElementById('form-contato');
+  const btn  = document.getElementById('btn-contato-submit');
+  const fb   = document.getElementById('form-contato-feedback');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    fb.textContent = '';
+    fb.className = '';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.source = 'landing-contato';
+
+    try {
+      if (!webhookUrl) throw new Error('Webhook não configurado');
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      fb.textContent = 'Mensagem enviada! Responderemos em breve.';
+      fb.className = 'feedback-ok';
+      form.reset();
+    } catch {
+      fb.textContent = 'Erro ao enviar. Use o e-mail ou WhatsApp acima.';
+      fb.className = 'feedback-erro';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensagem';
+    }
+  });
+</script>
 
 <style>
   .contato {
@@ -146,16 +175,11 @@ const whatsappDisplay = '(81) 99586-0005';
     color: #ffffff;
   }
 
-  .btn-primary:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+  .btn-primary:hover:not(:disabled) { background-color: var(--color-primary-dark); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  .form-nota {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    margin-block: 0;
-  }
+  .feedback-ok  { color: #48bb78; font-size: 0.9rem; }
+  .feedback-erro { color: #fc8181; font-size: 0.9rem; }
 
   @media (min-width: 768px) {
     .contato-grid {

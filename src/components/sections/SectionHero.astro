@@ -1,11 +1,10 @@
 ---
-// Section 1 — Hero (PRD 04 §4 Section 1 / Story 5.2 AC2).
-// Headline, sub-headline, CTA primario (utm_campaign=hero), CTA secundario
-// (placeholder de demonstracao — modal implementado na Story 5.5), microcopy
-// e espaco para visual/screenshot.
+// Section 1 — Hero (PRD 04 §4 Section 1 / Story 5.2 AC2 / Story 5.5 AC6-AC7).
 import { ctaUrl } from '../../utils/utm';
+import ModalVideo from '../ModalVideo.astro';
 
 const cadastroUrl = ctaUrl('hero');
+const hasVideo = !!import.meta.env.PUBLIC_VIDEO_DEMO_URL;
 ---
 
 <section class="hero" id="hero">
@@ -24,11 +23,13 @@ const cadastroUrl = ctaUrl('hero');
         <a class="btn btn-primary" href={cadastroUrl} data-track-cta="hero">
           Começar grátis por 14 dias
         </a>
-        <!--
-          CTA secundario: placeholder. O modal de demonstracao (video) e
-          implementado na Story 5.5. Por ora aponta para a ancora de demo.
-        -->
-        <a class="btn btn-secondary" href="#demonstracao" data-track-video>Ver demonstração</a>
+        {hasVideo ? (
+          <button type="button" class="btn btn-secondary" id="btn-ver-demo" data-track-video>
+            Ver demonstração
+          </button>
+        ) : (
+          <a class="btn btn-secondary" href="#precos">Ver planos</a>
+        )}
       </div>
 
       <p class="hero-microcopy">Sem cartão de crédito. Cancele quando quiser.</p>
@@ -138,3 +139,13 @@ const cadastroUrl = ctaUrl('hero');
     }
   }
 </style>
+
+<ModalVideo />
+
+{hasVideo && (
+  <script>
+    document.getElementById('btn-ver-demo')?.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('video:open'));
+    });
+  </script>
+)}

@@ -1,0 +1,122 @@
+---
+// Story 5.5 — Modal de vídeo demo com <dialog> nativo.
+// Ao fechar, src do iframe é removido para parar o vídeo.
+// youtube-nocookie.com para privacidade extra.
+const rawUrl = import.meta.env.PUBLIC_VIDEO_DEMO_URL as string | undefined;
+
+// Converte URL curta do YouTube para embed nocookie
+function toEmbedUrl(url: string | undefined): string {
+  if (!url) return '';
+  const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/);
+  if (ytMatch) return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?rel=0`;
+  return url; // já é embed ou URL desconhecida
+}
+
+const embedUrl = toEmbedUrl(rawUrl);
+const hasVideo = !!embedUrl;
+---
+
+{hasVideo && (
+  <dialog id="modal-video" aria-label="Vídeo de demonstração">
+    <div class="modal-video-inner">
+      <button class="modal-video-close" id="modal-video-close" type="button" aria-label="Fechar vídeo">✕</button>
+      <div class="video-wrapper">
+        <iframe
+          id="video-iframe"
+          src=""
+          data-src={embedUrl}
+          title="Demonstração do PitStop"
+          frameborder="0"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </dialog>
+)}
+
+<script>
+  const dialog  = document.getElementById('modal-video') as HTMLDialogElement | null;
+  const iframe  = document.getElementById('video-iframe') as HTMLIFrameElement | null;
+  const closeBtn = document.getElementById('modal-video-close');
+
+  if (!dialog || !iframe) {
+    // VIDEO_DEMO_URL não configurado — botão "Ver demonstração" abre link externo (tratado no SectionHero)
+  } else {
+    function openVideo() {
+      iframe!.src = iframe!.dataset.src ?? '';
+      dialog!.showModal();
+    }
+
+    function closeVideo() {
+      iframe!.src = '';
+      dialog!.close();
+    }
+
+    // Fechar ao clicar no X
+    closeBtn?.addEventListener('click', closeVideo);
+
+    // Fechar ao clicar no backdrop
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) closeVideo();
+    });
+
+    // Fechar com Esc (nativo do <dialog>) — também limpa o src
+    dialog.addEventListener('cancel', () => { iframe.src = ''; });
+
+    // Listener global para abrir o modal (disparado pelo SectionHero)
+    document.addEventListener('video:open', openVideo);
+  }
+</script>
+
+<style>
+  #modal-video {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    background: #000;
+    max-width: min(880px, 95vw);
+    width: 100%;
+    box-shadow: 0 8px 48px rgba(0,0,0,.7);
+  }
+
+  #modal-video::backdrop {
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(3px);
+  }
+
+  .modal-video-inner {
+    position: relative;
+    padding: 0;
+  }
+
+  .modal-video-close {
+    position: absolute;
+    top: -2.25rem;
+    right: 0;
+    background: rgba(255,255,255,.15);
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    z-index: 10;
+  }
+
+  .modal-video-close:hover { background: rgba(255,255,255,.3); }
+
+  .video-wrapper {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 */
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+  }
+</style>

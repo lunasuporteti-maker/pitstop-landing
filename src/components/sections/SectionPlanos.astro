@@ -1,10 +1,8 @@
 ---
-// Section 6 — Planos e Precos (PRD 04 §4 Section 6 / Story 5.2 AC7).
-// 3 cards lidos de src/data/planos.ts. Trial e Padrao apontam para /cadastro
-// com utm_campaign=pricing. Empresarial abre contato (modal na Story 5.5;
-// por ora ancora #contato-empresarial).
+// Section 6 — Planos e Precos (PRD 04 §4 Section 6 / Story 5.2 AC7 / Story 5.5 AC1).
 import { planos } from '../../data/planos';
 import { ctaUrl } from '../../utils/utm';
+import ModalEmpresarial from '../ModalEmpresarial.astro';
 
 const cadastroUrl = ctaUrl('pricing');
 ---
@@ -41,10 +39,13 @@ const cadastroUrl = ctaUrl('pricing');
                 {plano.ctaLabel}
               </a>
             ) : (
-              // CTA Empresarial: modal de formulario implementado na Story 5.5.
-              <a class="btn btn-secondary plano-cta" href="#contato-empresarial">
+              <button
+                type="button"
+                class="btn btn-secondary plano-cta"
+                id="btn-abrir-modal-empresarial"
+              >
                 {plano.ctaLabel}
-              </a>
+              </button>
             )}
           </li>
         ))
@@ -52,6 +53,15 @@ const cadastroUrl = ctaUrl('pricing');
     </ul>
   </div>
 </section>
+
+<ModalEmpresarial />
+
+<script>
+  document.getElementById('btn-abrir-modal-empresarial')
+    ?.addEventListener('click', () => {
+      (document.getElementById('modal-empresarial') as HTMLDialogElement)?.showModal();
+    });
+</script>
 
 <style>
   .planos {
