@@ -37,7 +37,7 @@ const cadastroUrl = ctaUrl('pricing');
             </ul>
 
             {plano.ctaTipo === 'cadastro' ? (
-              <a class="btn btn-primary plano-cta" href={cadastroUrl}>
+              <a class="btn btn-primary plano-cta" href={cadastroUrl} data-track-cta="pricing">
                 {plano.ctaLabel}
               </a>
             ) : (

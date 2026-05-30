@@ -1,0 +1,60 @@
+---
+// Story 5.4 — Carrega Meta Pixel e/ou GA4 SOMENTE após consentimento LGPD.
+// Se as vars de env não estiverem definidas, nenhum script é injetado.
+const pixelId = import.meta.env.PUBLIC_META_PIXEL_ID as string | undefined;
+const gaId    = import.meta.env.PUBLIC_GA_MEASUREMENT_ID as string | undefined;
+
+const hasRemarketing = !!(pixelId || gaId);
+---
+
+{hasRemarketing && (
+  <script
+    is:inline
+    data-pixel-id={pixelId ?? ''}
+    data-ga-id={gaId ?? ''}
+    id="consent-manager"
+  >
+    (function () {
+      var el = document.getElementById('consent-manager');
+      var pixelId = el && el.dataset.pixelId;
+      var gaId    = el && el.dataset.gaId;
+
+      function loadPixel() {
+        if (!pixelId) return;
+        /* global fbq */
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
+        }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', pixelId);
+        fbq('track', 'PageView');
+      }
+
+      function loadGA() {
+        if (!gaId) return;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId);
+      }
+
+      function activate() {
+        loadPixel();
+        loadGA();
+      }
+
+      // Já aceitou em visita anterior
+      if (localStorage.getItem('lgpd_consent') === 'accepted') {
+        activate();
+      }
+
+      // Aguarda aceite do banner nesta visita
+      document.addEventListener('lgpd:accept', activate);
+    })();
+  </script>
+)}

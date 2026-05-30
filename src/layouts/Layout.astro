@@ -3,6 +3,9 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SEO from '../components/SEO.astro';
+import Analytics from '../components/Analytics.astro';
+import ConsentManager from '../components/ConsentManager.astro';
+import BannerLGPD from '../components/BannerLGPD.astro';
 
 interface Props {
   title?: string;
@@ -36,11 +39,7 @@ const {
       canonical={canonical}
     />
 
-    <!--
-      LGPD: scripts de remarketing (Meta Pixel / Google Analytics) NAO sao
-      carregados aqui. Eles entram na Story 5.4 apenas APOS consentimento
-      explicito do usuario (banner de cookies). Ver README secao "Aviso LGPD".
-    -->
+    <Analytics />
 
     <slot name="head" />
   </head>
@@ -50,5 +49,40 @@ const {
       <slot />
     </main>
     <Footer />
+    <ConsentManager />
+    <BannerLGPD />
+
+    <!-- Story 5.4 — Eventos de tracking: CTA, FAQ, video -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // CTA clicks: [data-track-cta]
+        document.querySelectorAll<HTMLElement>('[data-track-cta]').forEach((el) => {
+          el.addEventListener('click', () => {
+            const section = el.dataset.trackCta ?? 'unknown';
+            if (typeof window.plausible === 'function') {
+              window.plausible('cta_click', { props: { section } });
+            }
+          });
+        });
+
+        // Video play: [data-track-video]
+        document.querySelectorAll('[data-track-video]').forEach((el) => {
+          el.addEventListener('click', () => {
+            if (typeof window.plausible === 'function') {
+              window.plausible('video_play');
+            }
+          });
+        });
+
+        // FAQ open: [data-faq-question] (dispara apenas no abrir, não no fechar)
+        document.querySelectorAll<HTMLDetailsElement>('[data-faq-question]').forEach((el) => {
+          el.addEventListener('toggle', () => {
+            if (el.open && typeof window.plausible === 'function') {
+              window.plausible('faq_open', { props: { question: el.dataset.faqQuestion ?? '' } });
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

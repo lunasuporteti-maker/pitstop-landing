@@ -12,7 +12,7 @@ import { faq } from '../../data/faq';
     <div class="faq-list">
       {
         faq.map((item) => (
-          <details class="faq-item">
+          <details class="faq-item" data-faq-question={item.pergunta}>
             <summary class="faq-question">{item.pergunta}</summary>
             <p class="faq-answer">{item.resposta}</p>
           </details>

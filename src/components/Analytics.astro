@@ -1,0 +1,15 @@
+---
+// Story 5.4 — Plausible Analytics: cookieless, LGPD-friendly, sem consentimento necessário.
+// Omitido em dev para não contaminar métricas de produção.
+const domain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
+const isDev = import.meta.env.DEV;
+---
+
+{!isDev && domain && (
+  <script
+    is:inline
+    defer
+    data-domain={domain}
+    src="https://plausible.io/js/script.js"
+  />
+)}
