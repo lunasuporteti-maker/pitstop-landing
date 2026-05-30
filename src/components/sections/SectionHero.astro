@@ -35,9 +35,52 @@ const hasVideo = !!import.meta.env.PUBLIC_VIDEO_DEMO_URL;
       <p class="hero-microcopy">Sem cartão de crédito. Cancele quando quiser.</p>
     </div>
 
-    <div class="hero-visual" role="img" aria-label="Prévia do sistema PitStop">
-      <!-- Placeholder de screenshot. Substituir por imagem real na Story 5.5. -->
-      <span class="hero-visual-text">[Screenshot do Sistema]</span>
+    <div class="hero-visual" aria-hidden="true">
+      <!-- Mockup animado do dashboard PitStop -->
+      <div class="mockup">
+        <div class="mockup-bar">
+          <span class="mockup-dot r"></span>
+          <span class="mockup-dot y"></span>
+          <span class="mockup-dot g"></span>
+          <span class="mockup-url">app.iaqueatende.com.br</span>
+        </div>
+        <div class="mockup-body">
+          <!-- KPIs -->
+          <div class="mk-kpis">
+            <div class="mk-kpi mk-kpi-green">
+              <span class="mk-kpi-label">Receita Hoje</span>
+              <span class="mk-kpi-val">R$ 1.240</span>
+            </div>
+            <div class="mk-kpi mk-kpi-blue">
+              <span class="mk-kpi-label">OS Abertas</span>
+              <span class="mk-kpi-val">7</span>
+            </div>
+            <div class="mk-kpi mk-kpi-orange">
+              <span class="mk-kpi-label">Agendamentos</span>
+              <span class="mk-kpi-val">3</span>
+            </div>
+          </div>
+          <!-- Lista de OS -->
+          <div class="mk-section-title">Ordens de Serviço</div>
+          <div class="mk-table">
+            <div class="mk-row mk-row-header">
+              <span>OS</span><span>Cliente</span><span>Status</span>
+            </div>
+            <div class="mk-row mk-row-1">
+              <span>#OS-089</span><span>João Silva</span>
+              <span class="mk-badge mk-badge-green">Concluída</span>
+            </div>
+            <div class="mk-row mk-row-2">
+              <span>#OS-090</span><span>Fiat Uno – Ana Lima</span>
+              <span class="mk-badge mk-badge-orange">Em andamento</span>
+            </div>
+            <div class="mk-row mk-row-3">
+              <span>#OS-091</span><span>Honda Civic – Carlos</span>
+              <span class="mk-badge mk-badge-blue">Aguardando</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -122,16 +165,121 @@ const hasVideo = !!import.meta.env.PUBLIC_VIDEO_DEMO_URL;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 280px;
-    background-color: var(--color-bg-alt);
-    border: 1px dashed var(--color-border);
-    border-radius: 12px;
   }
 
-  .hero-visual-text {
-    color: var(--color-text-muted);
-    font-weight: 600;
+  /* ── Mockup browser ── */
+  .mockup {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,.18);
+    border: 1px solid var(--color-border);
+    background: #0f172a;
+    animation: mockup-float 4s ease-in-out infinite;
   }
+
+  @keyframes mockup-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  .mockup-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.55rem 0.85rem;
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+  }
+
+  .mockup-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .mockup-dot.r { background: #ff5f57; }
+  .mockup-dot.y { background: #febc2e; }
+  .mockup-dot.g { background: #28c840; }
+
+  .mockup-url {
+    font-size: 0.7rem;
+    color: #64748b;
+    margin-left: 6px;
+    font-family: monospace;
+  }
+
+  .mockup-body {
+    padding: 1rem;
+    background: #0f172a;
+  }
+
+  /* KPIs */
+  .mk-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .mk-kpi {
+    border-radius: 8px;
+    padding: 0.6rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .mk-kpi-green  { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34,197,94,0.25); }
+  .mk-kpi-blue   { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59,130,246,0.25); }
+  .mk-kpi-orange { background: rgba(196, 72, 0, 0.15); border: 1px solid rgba(196,72,0,0.25); }
+
+  .mk-kpi-label { font-size: 0.6rem; color: #94a3b8; }
+  .mk-kpi-val   { font-size: 0.9rem; font-weight: 700; color: #f1f5f9; }
+
+  /* Tabela OS */
+  .mk-section-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+
+  .mk-table { display: flex; flex-direction: column; gap: 4px; }
+
+  .mk-row {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 1.4fr;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+  }
+
+  .mk-row-header { color: #475569; font-weight: 600; }
+  .mk-row-1 { background: rgba(255,255,255,.04); color: #cbd5e1; animation: row-appear 0.5s 0.3s both; }
+  .mk-row-2 { background: rgba(255,255,255,.04); color: #cbd5e1; animation: row-appear 0.5s 0.6s both; }
+  .mk-row-3 { background: rgba(255,255,255,.04); color: #cbd5e1; animation: row-appear 0.5s 0.9s both; }
+
+  @keyframes row-appear {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .mk-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .mk-badge-green  { background: rgba(34,197,94,.2);  color: #4ade80; }
+  .mk-badge-orange { background: rgba(196,72,0,.25);  color: #fb923c; }
+  .mk-badge-blue   { background: rgba(59,130,246,.2); color: #60a5fa; }
 
   @media (min-width: 1280px) {
     .hero-inner {
